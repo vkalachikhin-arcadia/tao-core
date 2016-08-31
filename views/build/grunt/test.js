@@ -107,8 +107,8 @@ module.exports = function(grunt) {
 
     //extract unit tests
     var extractTests = function extractTests(){
-        return grunt.file.expand([testRunners]).map(function(path){
-            return path.replace(root, testUrl);
+        return grunt.file.expand([testRunners]).map(function(testPath){
+            return testPath.replace(root, testUrl) + '?coverage=true';
         });
     };
 
@@ -118,9 +118,15 @@ module.exports = function(grunt) {
     qunit.taotest = {
         options : {
             console : true,
-            urls : extractTests()
+            urls : [testUrl + '/tao/views/js/test/core/eventifier/test.html?coverage=true']
         }
     };
+
+    var coverage = [];
+    grunt.event.on('qunit.cov', function(data){
+        coverage.push(data);
+        console.log('New data in coverage');
+    });
 
     grunt.config('qunit', qunit);
 
