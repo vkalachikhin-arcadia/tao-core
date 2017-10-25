@@ -72,9 +72,19 @@ define([
 
                 var $component = this.getElement();
 
-                resourceSelectorFactory($component.find('.resource-selector-container'));
+                resourceSelectorFactory($component.find('.resource-selector-container'), {
+                    classes : [{
+                        uri : '0',
+                        label : 'Local'
+                    }, {
+                        uri : '1',
+                        label : 'Shared'
+                    }],
+                    multiple : false
+                })
 
-$component.find('.media-preview').previewer({ url : 'test.mp4', type : 'video/mp4' });
+                $component.find('.media-preview').previewer({ url : '/tao/views/img/tao-logo.png', type : 'image' });
+
             });
 
         _.defer(function(){
