@@ -22,7 +22,9 @@
 define([
     'jquery',
     'ui/mediaSelector/selector',
-], function ($, mediaSelectorFactory) {
+    'json!test/ui/mediaSelector/classes.json',
+    'json!test/ui/mediaSelector/media.json'
+], function ($, mediaSelectorFactory, classes, media) {
     'use strict';
 /*
     QUnit.module('API');
@@ -244,6 +246,8 @@ define([
 
         QUnit.expect(1);
         mediaSelectorFactory(container, {
+            classes: classes,
+            nodes  : media
         })
         .on('render', function(){
             assert.ok(true);

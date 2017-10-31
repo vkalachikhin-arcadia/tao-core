@@ -40,7 +40,8 @@
             left: 0;
         }
     }
-    .media-view {
+    .media-view, .media-upload {
+
         display: flex;
         flex-flow: column nowrap;
         align-items: stretch;
@@ -56,18 +57,27 @@
             margin: 5px 10px;
             position: relative;
 
-            & > img {
+            & > img, .nopreview {
                 position: absolute;
                 display: block;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                max-width: 500px;
-                max-height: 500px;
+                max-width: 400px;
+                max-height: 400px;
             }
         }
         .media-properties {
             flex : 0 1 130px;
+            padding: 5px 10px;
+        }
+
+        .actions {
+            text-align: right;
+            padding: 5px 10px 10px 10px;
+        }
+
+        .media-uploader {
             padding: 5px 10px;
         }
     }

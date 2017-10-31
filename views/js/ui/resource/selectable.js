@@ -96,6 +96,12 @@ define([
                 nodes[uri] = node;
             },
 
+            removeNode : function removeNode(uri){
+                if(this.hasNode(uri)){
+                    delete nodes[uri];
+                }
+            },
+
             /**
              * Check if the given node exists
              * @param {String} uri - the node's URI
@@ -132,16 +138,21 @@ define([
             /**
              * Apply the selection to the given URIs.
              * @param {String[]} uris - the list of URIs to select
+             * @param {Boolean} [only=false] - if true the selection is done "only" on the given URIs (unselect previous)
              * @returns {selectable} chains
              * @fires selectable#change
              */
-            select : function select(uris){
+            select : function select(uris, only){
                 var $component;
                 var changed = false;
 
                 if(this.is('rendered')){
                     $component = this.getElement();
 
+                    if(only){
+                        selection = {};
+                        $('.' + selectedClass, this.getElement()).removeClass(selectedClass);
+                    }
                     if(!_.isArray(uris)){
                         uris = [uris];
                     }
