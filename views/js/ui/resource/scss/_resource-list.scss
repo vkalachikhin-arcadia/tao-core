@@ -8,6 +8,11 @@
         @include transition(opacity, 300ms, linear);
     }
 
+    &.multiple ul li a:after{
+        display: block;
+        @include transition(all, 200ms, linear);
+    }
+
     ul {
         list-style-type: none;
         padding: 0;
@@ -38,6 +43,7 @@
                     position: absolute;
                     right: 17px;
                     top: 12px;
+                    display: none;
                 }
                 &:hover {
                     text-decoration: none;
@@ -71,16 +77,5 @@
                 @include icon-checkbox-checked;
             }
         }
-    }
-
-    .more {
-        height: 45px;
-        padding: 10px;
-        text-align: center;
-    }
-
-    &.loading .more {
-        opacity: 0.65;
-        cursor : inherit;
     }
 }
