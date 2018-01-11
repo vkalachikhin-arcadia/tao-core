@@ -3,7 +3,6 @@
 
 .media-selector {
 
-    //background-color: $uiClickableDefaultBg;
     background-color: #fff;
     position: relative;
     height: 100%;
@@ -46,7 +45,7 @@
         flex-flow: column nowrap;
         align-items: stretch;
 
-        & > h2 {
+        & > h2, p {
             margin: 0;
             padding: 5px 10px;
         }

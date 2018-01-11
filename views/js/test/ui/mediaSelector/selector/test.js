@@ -246,8 +246,11 @@ define([
 
         QUnit.expect(1);
         mediaSelectorFactory(container, {
-            classes: classes,
-            nodes  : media
+            classes: classes
+        })
+        .on('query', function(params){
+            console.log('query caught');
+            this.update(media, params);
         })
         .on('render', function(){
             assert.ok(true);

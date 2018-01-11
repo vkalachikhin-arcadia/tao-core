@@ -694,7 +694,7 @@ define([
                     self.classSelector = classesSelectorFactory($classContainer, self.config);
                     self.classSelector
                         .on('render', resolve)
-                        .on('change', function(uri){
+                        .on('change', function(uri, classNode){
                             if(uri && uri !== self.classUri){
                                 self.classUri = uri;
 
@@ -707,8 +707,10 @@ define([
                                  * When the component's root class URI changes
                                  * @event resourceSelector#classchange
                                  * @param {String} classUri - the new class URI
+                                 * @param {Object} classNode - the full node
                                  */
-                                self.trigger('classchange', uri);
+                                self.trigger('classchange', uri, classNode);
+
 
                                 self.reset()
                                     .query();

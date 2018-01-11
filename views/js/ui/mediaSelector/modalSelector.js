@@ -17,27 +17,46 @@
  */
 
 /**
- *
  * Opens the media selector in a modal popup
- *
+ * (Wraps the mediaSelector component}
  *
  * @author Bertrand Chevrier <bertrand@taotesting.com>
  */
 define([
     'jquery',
     'lodash',
+    'i18n',
     'ui/component',
     'ui/modal',
     'ui/mediaSelector/selector',
     'tpl!ui/mediaSelector/tpl/modal',
-], function($, _, component, modal, mediaSelectorFactory, modalTpl){
+], function($, _, __, component, modal, mediaSelectorFactory, modalTpl){
     'use strict';
 
+    var defaultConfig = {
+        title : __('Media Manager'),
+        instructions : false
+    };
 
-    return function modalSelectorFactory($container, config){
+    /**
+     * Creates the  modalMediaSelector
+     *
+     * @param {jQueryElement} $container - where to append the component
+     * @param {Object} [config] - configuration options
+     * @param {String}  [config.title] - the modal title
+     * @param {String}  [config.instructions] - Additional instructions
+     * @param {Boolean} [config.uploadDisabled = false] - to disable the upload part
+     * @param {Boolean} [config.uploadStartOpen = false] - to start the component with the upload view
+     * @param {String|String[]} [config.uploadFilters] - to filter medias by mime type
+     * @returns {modalMediaSelector} the component
+     */
+    return function modalMediaSelectorFactory($container, config){
 
-
-        var modalSelector = component({
+        /**
+         * Defines the component
+         * @typedef {modalMediaSelector}
+         */
+        var modalMediaSelector = component({
             open : function open(){
                 if(this.is('rendered')){
                     this.getElement().modal('open');
@@ -47,8 +66,18 @@ define([
                 if(this.is('rendered')){
                     this.getElement().modal('close');
                 }
-            }
-        }, {})
+            },
+
+            /**
+             * Forward updates to the inner selector
+             * @see {ui/resource/selector#update}
+             */
+            //update : function update(nodes, params){
+                //if(this.mediaSelector){
+                    //this.mediaSelector.update(nodes, params);
+                //}
+            //}h
+        }, defaultConfig)
             .setTemplate(modalTpl)
             .on('init', function(){
 
@@ -56,6 +85,19 @@ define([
             })
             .on('render', function(){
                 var self = this;
+
+                var $selectorContainer = this.getElement().find('.media-selector-container');
+
+                this.mediaSelector = mediaSelectorFactory($selectorContainer, this.config)
+                    .on('select', function(selection){
+                        self.close();
+                        self.trigger('select', selection);
+                    });
+
+                this.mediaSelector.spread(this, ['query', 'error', 'download', 'upload', 'delete']);
+                this.update     = this.mediaSelector.update;
+                this.removeNode = this.mediaSelector.removeNode;
+                this.addNode    = this.mediaSelector.addNode;
 
                 this.getElement()
                     .on('close.modal', function(){
@@ -68,32 +110,12 @@ define([
                         startClosed: true,
                         minWidth : 'responsive',
                     });
-
-                mediaSelectorFactory(this.getElement(), this.config)
-                    .on('select', function(selection){
-                        self.close();
-                        self.trigger('select', selection);
-                    })
-                    .on('delete', function(node){
-                        console.log('delete', node);
-                    })
-                    .on('download', function(node){
-                        console.log('download', node);
-                    })
-                    .on('upload', function(node){
-                        console.log('download', node);
-                    })
-                    .on('query', function(params){
-
-                        this.update([], params);
-                    });
-
             });
 
         _.defer(function(){
-            modalSelector.init(config);
+            modalMediaSelector.init(config);
         });
-        return modalSelector;
+        return modalMediaSelector;
     };
 
 });
