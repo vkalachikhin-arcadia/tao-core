@@ -78,6 +78,7 @@ define(['jquery', 'core/pluginifier', 'core/dataattrhandler'], function ($, Plug
 
             return $(this).each(function () {
                 var $modal = $(this);
+                var $overlay;
 
                 options.modalOverlay = '__modal-bg-' + ($modal.attr('id') || new Date().getTime());
 
@@ -86,7 +87,7 @@ define(['jquery', 'core/pluginifier', 'core/dataattrhandler'], function ($, Plug
 
                 //Initialize the overlay for the modal dialog
                 if ($('#' + options.modalOverlay).length === 0) {
-                    var $overlay = $('<div/>').attr({'id': options.modalOverlay, 'class': options.modalOverlayClass});
+                    $overlay = $('<div/>').attr({'id': options.modalOverlay, 'class': options.modalOverlayClass});
                     if (options.$context instanceof $ && options.$context.length) {
                         //when a $context is given, position the modal overlay relative to that context
                         $overlay.css('position', 'absolute');
@@ -270,6 +271,57 @@ define(['jquery', 'core/pluginifier', 'core/dataattrhandler'], function ($, Plug
         },
 
         /**
+         * Moves the modal back the overlay
+         * @param {jQuery object} $element
+         * @fires modal#moveback.modal
+         */
+        _moveBack: function _moveBack($element) {
+            return $element.each(function () {
+                var $modal = $(this);
+                var $overlay;
+                var options = $modal.data(dataNs);
+                if(!$modal.hasClass('back')){
+
+                    options.originalIndex = parseInt($modal.css('z-index'), 10);
+
+                    $overlay = $('#' + options.modalOverlay);
+                    $modal.css('z-index', parseInt($overlay.css('z-index'), 10) - 1);
+                    $modal.addClass('back');
+
+                    /**
+                    * The target has been disabled
+                    * @event modal#moveback.modal
+                    */
+                    $element.trigger('moveback.' + pluginName);
+                }
+            });
+        },
+
+        /**
+         * Moves the modal in front of the overlay (if back)
+         * @param {jQuery object} $element
+         * @fires modal#movefront.modal
+         */
+        _moveFront: function _moveFront($element) {
+            return $element.each(function () {
+                var $modal = $(this);
+                var options = $modal.data(dataNs);
+                if($modal.hasClass('back') && options.originalIndex){
+
+                    $modal.css('z-index', options.originalIndex);
+
+                    $modal.removeClass('back');
+
+                    /**
+                    * The target has been disabled
+                    * @event modal#movefront.modal
+                    */
+                    $element.trigger('movefront.' + pluginName);
+                }
+            });
+        },
+
+        /**
          * Resize the modal window
          * @param {jQuery object} $element
          * @returns {undefined}
@@ -328,7 +380,7 @@ define(['jquery', 'core/pluginifier', 'core/dataattrhandler'], function ($, Plug
 
     //Register the modal to behave as a jQuery plugin.
     Pluginifier.register(pluginName, modal, {
-        expose: ['open', 'close', 'destroy']
+        expose: ['open', 'close', 'destroy', 'moveBack', 'moveFront']
     });
 
     /**

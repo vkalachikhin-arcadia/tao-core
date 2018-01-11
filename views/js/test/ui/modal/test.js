@@ -162,10 +162,11 @@ define([
 
     // Modal position does not depend on the main page scroll (BODY OR HTML)
     QUnit.asyncTest('mainScroll', function(assert) {
-        QUnit.expect(2);
-
         var $container = $('#modal-1');
         var $modal = $(modalTpl());
+
+        QUnit.expect(2);
+
         $modal.css({position: 'absolute'});
         $container.append($modal);
 
@@ -180,11 +181,13 @@ define([
 
     // Modal position should be changed when the modal in the container
     QUnit.asyncTest('innerScroll', function(assert) {
-        QUnit.expect(2);
         var $container = $('#modal-1');
         var $modal = $(modalTpl());
         var $scrolledContainer = $('<div style="height: 200px; overflow: auto;"></div>');
         var $content = $('<div style="height: 1000px;">Body</div>');
+
+        QUnit.expect(2);
+
         $modal.css({position: 'absolute'});
         $scrolledContainer.append($content);
         $scrolledContainer.append($modal);
@@ -194,6 +197,45 @@ define([
         $modal.on('opened.modal', function() {
             assert.ok(true, "The modal is visible");
             assert.equal($modal.css('top'), '540px', 'Modal window opened in the scrolled position');
+            QUnit.start();
+        });
+
+        $modal.modal();
+    });
+
+    QUnit.asyncTest('move back and front', function(assert) {
+        var $container = $('#modal-1');
+        var $modal = $(modalTpl());
+        var $overlay;
+
+        QUnit.expect(9);
+
+        $container.append($modal);
+
+        $modal.on('opened.modal', function() {
+            assert.ok( ! $modal.hasClass('back'), 'The modal starts without the back class');
+
+            $overlay = $modal.modal('options', 'modalOverlay');
+            assert.equal($overlay.length, 1, 'The overlay exists');
+
+            assert.ok($overlay.css('z-index')  > 0, 'The overlay has a defined z-index');
+            assert.ok($modal.css('z-index')  > 0, 'The modal has a defined z-index');
+            assert.ok($overlay.css('z-index') <= $modal.css('z-index'),  'The modal is over the overlay');
+
+            $modal.modal('moveBack');
+        });
+        $modal.on('moveback.modal', function() {
+            assert.ok($modal.hasClass('back'), 'The modal has now the back class');
+            assert.ok($overlay.css('z-index') >= $modal.css('z-index'), 'The modal is behind the overlay');
+
+            $modal.modal('moveFront');
+        });
+        $modal.on('movefront.modal', function() {
+            assert.ok(! $modal.hasClass('back'), 'The modal has not the back class');
+
+            assert.ok($overlay.css('z-index') <= $modal.css('z-index'),  'The modal is over the overlay');
+
+            $modal.modal('destroy');
             QUnit.start();
         });
 
