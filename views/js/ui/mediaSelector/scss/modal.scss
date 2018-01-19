@@ -1,0 +1,11 @@
+@import 'inc/bootstrap';
+
+
+.modal-media-selector {
+
+    max-width: 850px;
+
+    & > h2 {
+        margin-top: 0;
+    }
+}

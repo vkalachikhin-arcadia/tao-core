@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "modal.css",
+	"sources": [
+		"../scss/modal.scss",
+		"../../../../scss/inc/_bootstrap.scss",
+		"../../../../scss/inc/_variables.scss",
+		"../../../../scss/inc/_functions.scss",
+		"../../../../scss/inc/_colors.scss",
+		"../../../../scss/inc/fonts/_tao-icon-vars.scss"
+	],
+	"names": [],
+	"mappings": "AAGA,AAAA,qBAAqB,AAAC,CAElB,SAAS,CAAE,KAAK,CAKnB,AAPD,AAIQ,qBAJa,CAIb,EAAE,AAAC,CACH,UAAU,CAAE,CAAC,CAChB"
+}
