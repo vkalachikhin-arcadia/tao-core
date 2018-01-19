@@ -30,6 +30,7 @@ define([
     'ui/modal',
     'ui/mediaSelector/selector',
     'tpl!ui/mediaSelector/tpl/modal',
+    'css!ui/mediaSelector/css/modal.css',
 ], function($, _, __, component, modal, mediaSelectorFactory, modalTpl){
     'use strict';
 
@@ -72,11 +73,19 @@ define([
              * Forward updates to the inner selector
              * @see {ui/resource/selector#update}
              */
-            //update : function update(nodes, params){
-                //if(this.mediaSelector){
-                    //this.mediaSelector.update(nodes, params);
-                //}
-            //}h
+            update : function update(nodes, params){
+                if(this.mediaSelector){
+                    this.mediaSelector.update(nodes, params);
+                }
+            },
+
+            getResourceSelector : function getResourceSelector(){
+                if(this.mediaSelector){
+                    return this.mediaSelector.getResourceSelector();
+                }
+            }
+
+
         }, defaultConfig)
             .setTemplate(modalTpl)
             .on('init', function(){
@@ -86,20 +95,27 @@ define([
             .on('render', function(){
                 var self = this;
 
-                var $selectorContainer = this.getElement().find('.media-selector-container');
+                var $element = this.getElement();
+                var $selectorContainer = $element.find('.media-selector-container');
 
                 this.mediaSelector = mediaSelectorFactory($selectorContainer, this.config)
                     .on('select', function(selection){
                         self.close();
                         self.trigger('select', selection);
+                    })
+                    .on('cancel', function(){
+                        self.close();
+                    })
+                    .on('disable', function(){
+                        $element.modal('moveBack');
+                    })
+                    .on('enable', function(){
+                        $element.modal('moveFront');
                     });
 
                 this.mediaSelector.spread(this, ['query', 'error', 'download', 'upload', 'delete']);
-                this.update     = this.mediaSelector.update;
-                this.removeNode = this.mediaSelector.removeNode;
-                this.addNode    = this.mediaSelector.addNode;
 
-                this.getElement()
+                $element
                     .on('close.modal', function(){
                         self.trigger('close');
                     })

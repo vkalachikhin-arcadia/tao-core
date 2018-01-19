@@ -17,6 +17,10 @@
         flex : 1 1 auto;
     }
 
+    &.disabled {
+        opacity: 1 !important;
+    }
+
     .media-browser {
 
         flex : 0 1 292px;
@@ -26,17 +30,25 @@
         align-items: stretch;
 
         .resource-selector-container {
-            flex : 1 1 auto;
+            flex : 0 1 450px;
             position: relative;
             height: 100%;
+
+            .resource-selector {
+                height: 450px;
+            }
         }
         .actions {
-            //background-color : white;
-            margin: 0;
             padding: 10px;
             width: 100%;
-            flex : 0 1 100px;
+            flex : 0 1 90px;
             left: 0;
+            margin: 0;
+
+            .action {
+                width : 66px;
+                height: 66px;
+            }
         }
     }
     .media-view, .media-upload {

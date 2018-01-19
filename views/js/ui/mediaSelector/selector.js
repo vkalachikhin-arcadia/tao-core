@@ -13,7 +13,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * Copyright (c) 2017 (original work) Open Assessment Technologies SA ;
+ * Copyright (c) 2018 (original work) Open Assessment Technologies SA ;
  */
 
 /**
@@ -44,10 +44,20 @@ define([
 ], function($, _, __, areaBroker, component, hider, resourceSelectorFactory, confirmDialog, selectorTpl, propertiesTpl){
     'use strict';
 
+    /**
+     * Component's default options
+     * @see {mediaSelectorFactory#config}
+     */
     var defaultConfig = {
-        uploadDisabled : false,
         uploadStartOpen : false,
-        uploadFilters : []
+        uploadFilters : [],
+        actions : {
+            upload    : true,
+            download  : true,
+            'delete'  : true,
+            select    : true,
+            cancel    : true
+        }
     };
 
     /**
@@ -55,9 +65,9 @@ define([
      *
      * @param {jQueryElement} $container - where to append the component
      * @param {Object} [config] - configuration options
-     * @param {Boolean} [config.uploadDisabled = false] - to disable the upload part
      * @param {Boolean} [config.uploadStartOpen = false] - to start the component with the upload view
      * @param {String|String[]} [config.uploadFilters] - to filter medias by mime type
+     * @param {Object} [config.actions] - the list of active actions
      * @returns {mediaSelector} the component
      */
     return function mediaSelectorFactory($container, config){
@@ -81,23 +91,31 @@ define([
         var mediaSelector = component({
 
             /**
-             * Get the selected media
+             * Get the current selected media
              * @returns {Object} the media
              */
-            getSelectedMedia : function getSelectedMedia(){
+            getSelected: function getSelected(){
                 return media;
             },
 
-            /**
-             *
-             */
-            selectMedia : function selectMedia(selected){
-
-                if(_.isPlainObject(selected)){
+            setSelected : function setSelected(selected){
+                if(_.isPlainObject(selected) || selected === null){
                     media = selected;
+                }
+            },
 
-                    if(media && this.is('rendered')){
+            unsetSelected : function unsetSelected(){
+                this.setSelectedMedia(null);
+            },
 
+            /**
+             * Select
+             */
+            preview : function preview(){
+
+                if(this.is('rendered')){
+
+                    if(media){
                         $('.action a',  areas.getArea('actions')).removeClass('disabled');
 
                         this.togglePreview();
@@ -109,47 +127,55 @@ define([
                         });
 
                         areas.getArea('properties').html(propertiesTpl(media));
+                    } else {
+                        $('.action a:not([data-action="toggleUpload"])',  areas.getArea('actions')).addClass('disabled');
                     }
                 }
                 return this;
             },
 
-            unSelectMedia : function unSelectMedia(){
-                media = null;
+            //delete : function delete(){
+                //var self = this;
+                //if(this.config.actions.delete && media && media.label){
+                    //this.disable();
+                    //confirmDialog(
+                        //__('Are you sure you want to remove %s ?', media.label),
+                        //function accept(){
+                            //self.trigger('delete', media);
+                            //self.enable();
+                        //}, function reject(){
+                            //self.enable();
+                        //}
+                    //);
+                //}
+                //return this;
+            //},
 
-                if(this.is('rendered')){
-                    $('.action a:not([data-action="toggleUpload"])',  areas.getArea('actions')).addClass('disabled');
-                }
-            },
+            //downloadMedia : function downloadMedia(){
+                //if(this.config.actions.download && media){
+                    //this.trigger('download', media);
+                //}
+                //return this;
+            //},
 
-            deleteMedia : function deleteMedia(){
-                var self = this;
-                if(media && media.label){
-                    confirmDialog(__('Are you sure you want to remove %s ?', media.label), function accept(){
-                        self.trigger('delete', media);
-                    });
-                }
-                return this;
-            },
+            //select : function select(){
+                //if(this.actions.select){
+                    //this.trigger('select', media);
+                //}
+            //},
 
-            downloadMedia : function downloadMedia(){
-                if(media){
-                    self.trigger('download', media);
-                }
-                return this;
-            },
-
-
-            select : function select(){
-                this.trigger('select', media);
-            },
+            //cancel : function cancel(){
+                //if(this.config.actions.cancel){
+                    //this.trigger('cancel');
+                //}
+            //},
 
             /**
              * Switch on the upload panel
              * @returns {mediaSelector} chains
              */
             toggleUpload : function toggleUpload(){
-                if (!this.config.uploadDisabled && this.is('rendered') && !this.is('upload')) {
+                if (this.config.actions.upload && this.is('rendered') && !this.is('upload')) {
                     hider.hide(areas.getArea('view'));
                     hider.show(areas.getArea('upload'));
                     this.setState('preview', false);
@@ -172,23 +198,19 @@ define([
                 return this;
             },
 
-
-
             /**
              * Forward updates to the inner resource selector
              * @see {ui/resource/selector#update}
              */
-            //update: function update(nodes, params){
-                //if(this.resourceSelector){
-                    //this.resourceSelector.update(nodes, params);
-                //}
-            //},
+            update: function update(nodes, params){
+                if(this.resourceSelector){
+                    this.resourceSelector.update(nodes, params);
+                }
+            },
 
-            //removeNode : function removeNode(node) {
-                //if(this.resourceSelector){
-                    //this.resourceSelector.removeNode(node);
-                //}
-            //}
+            getResourceSelector : function getResourceSelector() {
+                return this.resourceSelector;
+            }
 
         }, defaultConfig)
         .setTemplate(selectorTpl)
@@ -230,22 +252,17 @@ define([
             })
             .on('change', function(selection){
                 if(_.size(selection) > 0){
-                    self.selectMedia(_.values(selection)[0]);
+                    self.setSelected(_.values(selection)[0]);
                 } else {
-                    self.unSelectMedia();
+                    self.unsetSelected();
                 }
+                self.preview();
             });
 
-            //forward some events and method between the embed resourceSelector and the mediaSelector
-            //in order to externalize the data management
             this.resourceSelector.spread(this, ['error', 'query']);
-            this.update     = this.resourceSelector.update;
-            this.removeNode = this.resourceSelector.removeNode;
-            this.addNode    = this.resourceSelector.addNode;
-
 
             //set up the uploader
-            if(!this.config.uploadDisabled){
+            if(this.config.actions.upload){
                 areas.getArea('uploader').uploader({
                     upload      : true,
                     multiple    : true,
@@ -270,9 +287,34 @@ define([
                 if(!$actionElt.hasClass('disabled')){
                     action = $actionElt.data('action');
 
-                    if(_.isFunction(self[action])){
-                        self[action]();
+                    if(self.config.actions[action]){
+                        if(_.isFunction(self[action])){
+                            self[action]( self.getSelected());
+                        }
+                        self.trigger(action, self.getSelected());
                     }
+                }
+            });
+        })
+        .before('delete', function(){
+            var self = this;
+            this.disable();
+            return new Promise(function(resolve, reject){
+                if(self.config.actions.delete && media && media.label){
+
+                    confirmDialog(
+                        __('Are you sure you want to remove %s ?', media.label),
+                        function confirm(){
+                            self.enable();
+                            resolve();
+
+                        }, function cancel(){
+                            self.enable();
+                            reject();
+                        }
+                    );
+                } else {
+                    return reject();
                 }
             });
         });
