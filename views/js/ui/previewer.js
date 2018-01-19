@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; under version 2
+ * of the License (non-upgradable).
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ * Copyright (c) 2014-2018 (original work) Open Assessment Technologies SA;
+ */
+
 /**
  * @author Bertrand Chevrier <bertrand@taotesting.com>
  */
@@ -15,6 +33,7 @@ define([
 function($, _, __, mimeType, Pluginifier, mediaplayer, iframeNotifier, documentViewer, pdfViewer) {
     'use strict';
 
+    var previewer;
     var ns = 'previewer';
     var dataNs = 'ui.' + ns;
 
@@ -75,7 +94,7 @@ function($, _, __, mimeType, Pluginifier, mediaplayer, iframeNotifier, documentV
     /**
      * @exports ui/previewer
      */
-    var previewer = {
+    previewer = {
         /**
          * Initialize the plugin.
          *
@@ -89,7 +108,6 @@ function($, _, __, mimeType, Pluginifier, mediaplayer, iframeNotifier, documentV
          */
         init: function(options) {
             var self = previewer;
-
 
             //get options using default
             options = _.defaults(options || {}, defaults);
@@ -161,9 +179,11 @@ function($, _, __, mimeType, Pluginifier, mediaplayer, iframeNotifier, documentV
 
             self._clearPlayer($elt);
             if (options) {
-                type = options.type || mimeType.getFileType({mime: options.mime, name: options.url});
-
+                type = options.type;
                 if (options.url) {
+                    if(!options.type) {
+                        type = mimeType.getFileType({mime: options.mime, name: options.url});
+                    }
                     if (!options.name) {
                         options.name = options.url.substring(options.url.lastIndexOf("/") + 1, options.url.lastIndexOf("."));
                     }
@@ -190,16 +210,16 @@ function($, _, __, mimeType, Pluginifier, mediaplayer, iframeNotifier, documentV
                 if(options.url){
                     if (type === 'audio' || type === 'video') {
                         player = mediaplayer({
-                                url: options.url,
-                                type: options.mime,
-                                renderTo: $content
-                            })
-                            .on('ready', function() {
-                                var defSize = _defaultSize[this.getType()] || _defaultSize.video;
-                                var width = options.width || defSize.width;
-                                var height = options.height || defSize.height;
-                                this.resize(width, height);
-                            });
+                            url: options.url,
+                            type: options.mime,
+                            renderTo: $content
+                        })
+                        .on('ready', function() {
+                            var defSize = _defaultSize[this.getType()] || _defaultSize.video;
+                            var width = options.width || defSize.width;
+                            var height = options.height || defSize.height;
+                            this.resize(width, height);
+                        });
                         self._setPlayer($elt, player);
 
                         // stop video and free the socket on escape keypress(modal window hides)
