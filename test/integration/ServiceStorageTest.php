@@ -18,23 +18,14 @@
  *               2009-2012 (update and modification) Public Research Centre Henri Tudor (under the project TAO-SUSTAIN & TAO-DEV);
  * 
  */
+namespace oat\tao\test\integration;
 
+use oat\generis\test\TestCase;
 
+class ServiceStorageTestCase extends TestCase {
 
-class ServiceStorageTestCase extends \PHPUnit_Framework_TestCase {
-
-	/**
-	 * tests initialization
-	 */
-	public function setUp(){
-	}
-	
-	public function tearDown() {
-    }
-	
-	
 	public function testServiceStorage() {
-		$service = tao_models_classes_service_StateStorage::singleton();
+		$service = \tao_models_classes_service_StateStorage::singleton();
 		$userUri = LOCAL_NAMESPACE.'#inexistentTestUser';
 
 		// is not set		

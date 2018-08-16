@@ -20,7 +20,6 @@
  */
 namespace oat\tao\test\integration;
 
-
 use oat\generis\model\GenerisRdf;
 use oat\tao\model\menu\MenuService;
 use oat\tao\model\TaoOntology;
@@ -33,9 +32,6 @@ use \common_ext_NamespaceManager;
 use \common_cache_FileCache;
 use \common_ext_ExtensionsManager;
 use Prophecy\Prophet;
-
-include_once dirname(__FILE__) . '/../../includes/raw_start.php';
-
 /**
  * This class enable you to test the models managment of the tao extension
  *
@@ -59,11 +55,9 @@ class ServiceTest extends TaoPhpUnitTestRunner {
 		$this->taoService = tao_models_classes_TaoService::singleton();
 	}
 	
-	
-	
 	/**
 	 * Test the service factory: dynamical instantiation and single instance serving  
-	 * @see tao_models_classes_ServiceFactory::get
+	 * @see \tao_models_classes_ServiceFactory::get
 	 */
 	public function testServiceFactory(){
 		
@@ -107,7 +101,7 @@ class ServiceTest extends TaoPhpUnitTestRunner {
 	/**
 	 * Test the Service methods from the abtract Service class, 
 	 * but using the tao_models_classes_TaoService as a common child to access the methods of the abtract class
-	 * @see tao_models_classes_Service
+	 * @see \tao_models_classes_Service
 	 */
 	public function testAbstractService(){
 		

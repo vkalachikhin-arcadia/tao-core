@@ -18,25 +18,14 @@
  *               2009-2012 (update and modification) Public Research Centre Henri Tudor (under the project TAO-SUSTAIN & TAO-DEV);
  * 
  */
+namespace oat\tao\test\integration;
 
-//TODO simpletest testcase that need to be migrate to phpunit
-include_once dirname(__FILE__) . '/../../includes/raw_start.php';
+use oat\generis\test\TestCase;
 
-class ServiceStorageTestCase extends UnitTestCase {
+class ServiceStorageTestCase extends TestCase {
 
-	/**
-	 * tests initialization
-	 */
-	public function setUp(){
-		TaoTestRunner::initTest();
-	}
-	
-	public function tearDown() {
-    }
-	
-	
 	public function testServiceStorage() {
-		$service = tao_models_classes_service_StateStorage::singleton();
+		$service = \tao_models_classes_service_StateStorage::singleton();
 		$userUri = LOCAL_NAMESPACE.'#inexistentTestUser';
 
 		// is not set		

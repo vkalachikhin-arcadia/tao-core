@@ -3,11 +3,10 @@ namespace oat\tao\test\integration;
 
 include_once dirname(__FILE__) . '/../../includes/raw_start.php';
 
-use \common_ext_ExtensionsManager;
-use \common_persistence_Manager;
 use oat\generis\model\GenerisRdf;
 use oat\tao\model\TaoOntology;
 use oat\tao\model\user\TaoRoles;
+use oat\tao\test\TaoPhpUnitTestRunner;
 
 
 abstract class RestTestRunner extends TaoPhpUnitTestRunner
