@@ -30,7 +30,6 @@ use oat\generis\model\user\UserRdf;
 use oat\generis\model\data\ModelManager;
 use oat\generis\model\kernel\persistence\file\FileIterator;
 use oat\oatbox\event\EventManager;
-use oat\oatbox\service\ConfigurableService;
 use oat\tao\model\cliArgument\argument\implementation\Group;
 use oat\tao\model\cliArgument\argument\implementation\verbose\Debug;
 use oat\tao\model\cliArgument\argument\implementation\verbose\Error;
@@ -67,7 +66,6 @@ use oat\tao\model\taskQueue\QueueDispatcher;
 use oat\tao\model\taskQueue\QueueDispatcherInterface;
 use oat\tao\model\taskQueue\TaskLog;
 use oat\tao\model\taskQueue\TaskLog\Broker\RdsTaskLogBroker;
-use oat\tao\model\taskQueue\TaskLog\Broker\TaskLogBrokerInterface;
 use oat\tao\model\taskQueue\TaskLogInterface;
 use oat\tao\model\Tree\GetTreeService;
 use oat\tao\model\user\implementation\NoUserLocksService;
@@ -77,7 +75,6 @@ use oat\tao\model\user\UserLocks;
 use oat\tao\scripts\install\AddArchiveService;
 use oat\tao\scripts\install\InstallNotificationTable;
 use oat\tao\scripts\install\AddTmpFsHandlers;
-use oat\tao\scripts\install\RegisterTaskQueueServices;
 use oat\tao\scripts\install\UpdateRequiredActionUrl;
 use oat\tao\model\accessControl\func\AclProxy;
 use oat\tao\model\accessControl\func\AccessRule;
@@ -839,6 +836,6 @@ class Updater extends \common_ext_ExtensionUpdater {
             $this->setVersion('19.20.0');
         }
 
-        $this->skip('19.20.0', '19.25.0');
+        $this->skip('19.20.0', '20.0.0');
     }
 }
