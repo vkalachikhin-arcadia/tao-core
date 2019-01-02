@@ -882,7 +882,7 @@ abstract class tao_actions_RdfController extends tao_actions_CommonModule
      * @return {Boolean}
      * @throws common_exception_Unauthorized
      */
-    public function validateCsrf()
+    protected function validateCsrf()
     {
         $tokenService = $this->getServiceLocator()->get(TokenService::SERVICE_ID);
 
