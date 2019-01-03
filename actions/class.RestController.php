@@ -19,6 +19,7 @@
  */
 
 use oat\generis\model\OntologyAwareTrait;
+use oat\tao\model\routing\RouteAnnotation;
 
 abstract class tao_actions_RestController extends \tao_actions_CommonModule
 {
@@ -34,6 +35,7 @@ abstract class tao_actions_RestController extends \tao_actions_CommonModule
      * Check response encoding requested
      *
      * tao_actions_RestModule constructor.
+     * @RouteAnnotation("hidden")
      */
     public function __construct()
     {

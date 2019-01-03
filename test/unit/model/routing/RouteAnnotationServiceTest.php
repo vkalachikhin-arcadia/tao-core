@@ -10,6 +10,7 @@ namespace oat\tao\test\unit\model\routing;
 
 use oat\tao\model\routing\RouteAnnotationService;
 use oat\tao\test\unit\model\routing\sample\RouteAnnotationExample;
+use oat\tao\test\unit\model\routing\sample\RouteAnnotationExampleInherited;
 use Prophecy\Argument;
 use Psr\Log\LoggerInterface;
 
@@ -46,5 +47,10 @@ class RouteAnnotationServiceTest extends \PHPUnit_Framework_TestCase
     public function testValidatePassed()
     {
         self::assertTrue($this->service->hasAccess(RouteAnnotationExample::class, 'withoutAnnotation'));
+    }
+
+    public function testInheritedAnnotation()
+    {
+        self::assertTrue($this->service->isHidden(RouteAnnotationExampleInherited::class, 'notFoundAnnotation'));
     }
 }
