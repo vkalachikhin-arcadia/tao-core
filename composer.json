@@ -38,7 +38,10 @@
     ],
     "type": "tao-extension",
     "extra": {
-        "tao-extension-name": "tao"
+        "tao-extension-name": "tao",
+        "npm-bridge": {
+            "arguments": ["--prefix", "views"]
+        }
     },
     "require": {
         "php": ">=5.6",
@@ -52,7 +55,8 @@
         "justinrainbow/json-schema": "5.2.1",
         "pimple/pimple": "^3.0",
         "imsglobal/lti": "^3.0",
-        "paragonie/random_compat": "^2.0"
+        "paragonie/random_compat": "^2.0",
+        "oat-sa/composer-npm-bridge": "dev-feature/NEX-89_add-npm-arguments"
     },
     "autoload": {
         "psr-4": {
