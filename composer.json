@@ -60,7 +60,7 @@
         "pimple/pimple": "^3.0",
         "imsglobal/lti": "^3.0",
         "paragonie/random_compat": "^2.0",
-        "oat-sa/composer-npm-bridge": "dev-feature/NEX-89_add-npm-arguments-test"
+        "oat-sa/composer-npm-bridge": "dev-develop"
     },
     "autoload": {
         "psr-4": {
