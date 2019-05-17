@@ -1,7 +1,7 @@
 {
   "name": "@oat-sa/tao",
   "version": "0.1.0",
-  "description" :"doà",
+  "description": "doà",
   "license": "GPL-2.0",
   "dependencies": {
     "lodash": "*"
