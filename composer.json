@@ -60,7 +60,7 @@
         "pimple/pimple": "^3.0",
         "imsglobal/lti": "^3.0",
         "paragonie/random_compat": "^2.0",
-        "oat-sa/composer-npm-bridge": "dev-develop"
+        "oat-sa/composer-npm-bridge": "dev-feature/move-to-php56"
     },
     "autoload": {
         "psr-4": {
