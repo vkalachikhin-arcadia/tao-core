@@ -30,11 +30,11 @@ use Psr\Log\LoggerInterface;
 class QueueTest extends TestCase
 {
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectExceptionMessage  Queue name needs to be set.
      */
     public function testWhenQueueNameIsEmptyThenThrowException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Queue name needs to be set.');
         $brokerMock = $this->getMockForAbstractClass(QueueBrokerInterface::class);
 
         new Queue('', $brokerMock);

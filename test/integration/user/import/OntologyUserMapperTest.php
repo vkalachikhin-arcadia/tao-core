@@ -72,12 +72,12 @@ class OntologyUserMapperTest extends GenerisPhpUnitTestRunner
      * @param $expected
      *
      * @dataProvider provideEmptyFieldDataExample
-     * @expectedException \oat\tao\model\import\service\MandatoryFieldException
      *
      * @throws \Exception
      */
     public function testMapMandatoryNotEmptyShouldFail($schema, $data, $expected)
     {
+        $this->expectException(MandatoryFieldException::class);
         $mapper = $this->getMapper();
         $mapper->setOption(OntologyUserMapper::OPTION_SCHEMA, $schema);
 

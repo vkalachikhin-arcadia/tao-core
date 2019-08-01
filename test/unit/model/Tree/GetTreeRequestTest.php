@@ -2,11 +2,11 @@
 
 namespace oat\test\model\Tree;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\Tree\GetTreeRequest;
-use PHPUnit_Framework_TestCase;
 use Request;
 
-class GetTreeRequestTest extends PHPUnit_Framework_TestCase
+class GetTreeRequestTest extends TestCase
 {
 	public function testCreateSuccessfullyWithClassUri()
 	{

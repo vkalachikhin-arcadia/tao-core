@@ -37,7 +37,8 @@ class ValidatorTest extends TaoPhpUnitTestRunner {
 	/**
 	 * tests initialization
 	 */
-	public function setUp(){
+	public function setUp(): void
+    {
 		TaoPhpUnitTestRunner::initTest();
 	}
 
@@ -100,7 +101,7 @@ class ValidatorTest extends TaoPhpUnitTestRunner {
 		$callback = new tao_helpers_form_validators_Callback(array(
 			'function' => 'aFunctionThatDoesntExist'
 		));
-		$this->setExpectedException('common_Exception');
+		$this->expectException(common_Exception::class);
 		$this->assertFalse($callback->evaluate(''));
 
 		// global function
@@ -248,7 +249,7 @@ class ValidatorTest extends TaoPhpUnitTestRunner {
 		);
 
 		//option test
-		$this->setExpectedException('common_Exception');
+		$this->expectException(common_Exception::class);
 		$filemime = new tao_helpers_form_validators_FileSize(array());
 
 		$filesize = new tao_helpers_form_validators_FileSize(array('min' => 1000));
@@ -299,11 +300,11 @@ class ValidatorTest extends TaoPhpUnitTestRunner {
 				'Integer comparator validation'
 			);
 	}
-
+/*
 	public function testLabel(){
 		//@todo implement test cases
 	}
-
+*/
 	public function testLength(){
 		$minlenght = new tao_helpers_form_validators_Length(array('min' => 3));
 		$this->exec($minlenght,
@@ -382,7 +383,7 @@ class ValidatorTest extends TaoPhpUnitTestRunner {
 		$this->assertFalse($equals->evaluate('123'));
 		$this->assertTrue($equals->evaluate('1234'));
 
-		$this->setExpectedException('common_Exception');
+		$this->expectException(common_Exception::class);
 		$equals = tao_helpers_form_FormFactory::getValidator('Equals');
 		//@todo implement test cases for multivalues
 	}
@@ -407,21 +408,21 @@ class ValidatorTest extends TaoPhpUnitTestRunner {
 	}
 
     /**
-     * @expectedException common_Exception
-     * @expectedExceptionMessage Please set the reference of the second password element
      */
     public function testPasswordNegativeNoReference()
     {
+        $this->expectException(common_Exception::class);
+        $this->expectExceptionMessage('Please set the reference of the second password element');
         $validator = tao_helpers_form_FormFactory::getValidator('Password');
         $validator->evaluate('something');
     }
 
     /**
-     * @expectedException common_Exception
-     * @expectedExceptionMessage Please set the reference of the second password element
      */
     public function testPasswordNegativeInvalidReference()
     {
+        $this->expectException(common_Exception::class);
+        $this->expectExceptionMessage('Please set the reference of the second password element');
         $validator = tao_helpers_form_FormFactory::getValidator('Password', array('password2_ref' => 'invalid_form_element'));
         $validator->evaluate('something');
     }
@@ -444,11 +445,11 @@ class ValidatorTest extends TaoPhpUnitTestRunner {
 	}
 
     /**
-     * @expectedException common_Exception
-     * @expectedExceptionMessage Please set the format options (define your regular expression)!
      */
     public function testRegexMisconfig()
     {
+        $this->expectException(common_Exception::class);
+        $this->expectExceptionMessage('Please set the format options (define your regular expression)!');
         tao_helpers_form_FormFactory::getValidator('Regex', array());
     }
 
@@ -588,10 +589,10 @@ class ValidatorTest extends TaoPhpUnitTestRunner {
     }
 
     /**
-     * @expectedException common_exception_Error
-     * @expectedExceptionMessage Property not set
      */
     public function testUniqueNegativePropertyNotSet(){
+        $this->expectException(common_exception_Error::class);
+        $this->expectExceptionMessage('Property not set');
         $resourceMock = $this->getMockBuilder('core_kernel_classes_Class')->disableOriginalConstructor()->getMock();
         $resourceMock->method('getParentClasses')->willReturn(array(new kernel_class_Stub()));
 

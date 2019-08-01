@@ -20,9 +20,11 @@ namespace oat\tao\test\unit\import\service;
 
 use core_kernel_classes_Class;
 use core_kernel_classes_Resource;
+use oat\generis\test\TestCase;
+use oat\tao\model\import\service\RdsResourceNotFoundException;
 use oat\tao\model\import\service\RdsValidatorValueMapper;
 
-class RdsValidatorValueMapperTest extends \PHPUnit_Framework_TestCase
+class RdsValidatorValueMapperTest extends TestCase
 {
     public function testMap()
     {
@@ -32,28 +34,28 @@ class RdsValidatorValueMapperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException  \oat\tao\model\import\service\RdsResourceNotFoundException
      */
     public function testMapNoResourceFound()
     {
+        $this->expectException(RdsResourceNotFoundException::class);
         $service = $this->getService('someClass', null, []);
         $service->map('someValue');
     }
 
     /**
-     * @expectedException  \oat\tao\model\import\service\RdsResourceNotFoundException
      */
     public function testMapMultipleResourceFound()
     {
+        $this->expectException(RdsResourceNotFoundException::class);
         $service = $this->getService('someClass', null, [$this->mockResource(true), $this->mockResource(true)]);
         $service->map('someValue');
     }
 
     /**
-     * @expectedException  \oat\tao\model\import\service\RdsResourceNotFoundException
      */
     public function testMapMultipleResourceNotAsClass()
     {
+        $this->expectException(RdsResourceNotFoundException::class);
         $service = $this->getService(null, $this->mockResource(false), []);
         $service->map('someValue');
     }

@@ -20,23 +20,24 @@
 
 namespace  oat\tao\test\unit\lock;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\lock\implementation\SimpleLock;
 
-class SimpleLockTest extends \PHPUnit_Framework_TestCase
+class SimpleLockTest extends TestCase
 {
     
     /**
-     * @expectedException common_exception_Error
      * @author Lionel Lecaque, lionel@taotesting.com
      */
     public function testConstructExecption(){
+        $this->expectException(\common_exception_Error::class);
         $resource = $this->prophesize('core_kernel_classes_Resource');
         $owner = $this->prophesize('core_kernel_classes_Literal');
         $lock = new SimpleLock($resource->reveal(), $owner->reveal(), 'epoch');
     }
     
     /**
-     * 
+     * @doesNotPerformAssertions
      * @author Lionel Lecaque, lionel@taotesting.com
      * @return \oat\tao\model\lock\implementation\SimpleLock
      */
@@ -65,5 +66,3 @@ class SimpleLockTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('epoch', $lock->getCreationTime());
     }
 }
-
-?>

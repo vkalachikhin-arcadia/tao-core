@@ -26,7 +26,7 @@ use Slim\Http\Stream;
  * @package tao
  * @author Aleh Hutnikau <hutnikau@1pt.com>
  */
-class StreamRangeTest extends \PHPUnit_Framework_TestCase
+class StreamRangeTest extends \oat\generis\test\TestCase
 {
 
 
@@ -42,11 +42,11 @@ class StreamRangeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider wrongRangesProvider
-     * @expectedException \oat\tao\model\stream\StreamRangeException
      */
     public function testConstructExcept($stream, $rangeValue)
     {
-        $range = new StreamRange($stream, $rangeValue);
+        $this->expectException(\oat\tao\model\stream\StreamRangeException::class);
+        new StreamRange($stream, $rangeValue);
     }
 
 

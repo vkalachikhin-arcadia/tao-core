@@ -45,7 +45,7 @@ class SearchTest extends GenerisPhpUnitTestRunner {
     
     private $property;
 	
-    public function setUp()
+    public function setUp(): void
     {		
         parent::setUp();
 		$rdfClass = new core_kernel_classes_Class(GenerisRdf::CLASS_GENERIS_RESOURCE);
@@ -53,7 +53,8 @@ class SearchTest extends GenerisPhpUnitTestRunner {
 		$this->property = $this->class->createProperty('test property');
 	}
     
-    public function tearDown() {
+    public function tearDown(): void
+    {
         parent::tearDown();
         $this->class->delete();
         $this->property->delete();
@@ -98,11 +99,11 @@ class SearchTest extends GenerisPhpUnitTestRunner {
     }
 
     /**
-     * @expectedException common_Exception
      * @depends testCreateIndex
      */
     public function testDublicateCreate($index)
     {
+        $this->expectException(\common_Exception::class);
         $this->assertInstanceOf(OntologyIndex::class, $index);
         
         $tokenizer = new core_kernel_classes_Resource(RawValue::URI);

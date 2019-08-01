@@ -11,7 +11,7 @@ class BaseWebsourceTest extends TestCase
     /** @var BaseWebsource | \PHPUnit_Framework_MockObject_MockObject */
     private $baseWebsource;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->baseWebsource = $this->getMockForAbstractClass(
             BaseWebsource::class,

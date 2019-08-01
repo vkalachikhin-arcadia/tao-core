@@ -49,7 +49,7 @@ class FactoryTest extends TaoPhpUnitTestRunner {
     /** @var  Factory */
     protected $factory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -161,10 +161,10 @@ class FactoryTest extends TaoPhpUnitTestRunner {
      * @dataProvider missingControllerActionNameProvider
      * @param string $controllerClassName
      * @param string $actionName
-     * @expectedException oat\tao\model\controllerMap\ActionNotFoundException
      */
     public function testGetActionDescriptionForMissingAction($controllerClassName, $actionName)
     {
+        $this->expectException(\oat\tao\model\controllerMap\ActionNotFoundException::class);
         $this->factory->getActionDescription($controllerClassName, $actionName);
     }
 

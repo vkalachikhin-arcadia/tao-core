@@ -28,7 +28,7 @@ class DateHelperTest extends TaoPhpUnitTestRunner
 {
 
     /**
-     *
+     * depends from configuration.
      * @author Lionel Lecaque, lionel@taotesting.com
      */
     public function testDisplayDateDefaultTimeZone()

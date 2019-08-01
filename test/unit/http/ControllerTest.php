@@ -13,13 +13,8 @@ class ControllerTest extends TestCase
 {
     public function testControllerExtendsHttpTrait()
     {
-        $this->assertArraySubset(
-            [
-                HttpRequestHelperTrait::class,
-                HttpFlowTrait::class
-            ],
-            array_keys(class_uses(Controller::class))
-        );
+        $this->assertArrayHasKey(HttpRequestHelperTrait::class, class_uses(Controller::class));
+        $this->assertArrayHasKey(HttpFlowTrait::class, class_uses(Controller::class));
     }
 
     public function testSetRequest()

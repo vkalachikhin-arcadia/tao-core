@@ -39,7 +39,7 @@ class AbstractWorkerTest extends TestCase
     /** @var DummyWorker */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

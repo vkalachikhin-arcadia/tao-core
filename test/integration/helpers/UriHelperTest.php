@@ -50,7 +50,7 @@ class UriHelperTest extends TaoPhpUnitTestRunner
     public function testUrlEncode($action, $module, $extension, $params, $expected)
     {
         $url = \tao_helpers_Uri::url($action, $module, $extension, $params);
-        $this->assertContains($expected, $url);
+        $this->assertStringContainsString($expected, $url);
 
     }
 

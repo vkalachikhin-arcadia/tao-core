@@ -20,10 +20,12 @@
 
 namespace oat\tao\test\unit\model\taskQueue\Task;
 
+
+use oat\generis\test\TestCase;
 use oat\tao\model\taskQueue\Task\AbstractTask;
 use oat\tao\model\taskQueue\Task\TaskInterface;
 
-class AbstractTaskTest extends \PHPUnit_Framework_TestCase
+class AbstractTaskTest extends TestCase
 {
     /**
      * @var AbstractTask
@@ -32,14 +34,14 @@ class AbstractTaskTest extends \PHPUnit_Framework_TestCase
     private $fakeId = 'ADFA23234sdfsdf';
     private $fakeOwner = 'FakeOwner';
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->abstractTaskMock = $this->getMockBuilder(AbstractTask::class)
             ->setConstructorArgs([$this->fakeId, $this->fakeOwner])
             ->getMockForAbstractClass();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->abstractTaskMock = null;
     }
@@ -79,18 +81,18 @@ class AbstractTaskTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testSetMetadataWhenKeyIsInvalidThenThrowException()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->abstractTaskMock->setMetadata(new \stdClass());
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testGetMetadataWhenKeyIsInvalidThenThrowException()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->abstractTaskMock->getMetadata(new \stdClass());
     }
 
@@ -129,18 +131,18 @@ class AbstractTaskTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testSetParameterWhenKeyIsInvalidThenThrowException()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->abstractTaskMock->setParameter(new \stdClass());
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testGetParameterWhenKeyIsInvalidThenThrowException()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->abstractTaskMock->getParameter(new \stdClass());
     }
 

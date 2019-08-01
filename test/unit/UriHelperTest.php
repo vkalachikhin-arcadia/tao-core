@@ -24,9 +24,9 @@
  * @package tao
  
  */
-class UriHelperTestCase extends \PHPUnit_Framework_TestCase {
+class UriHelperTestCase extends \oat\generis\test\TestCase {
     
-    public function setUp()
+    public function setUp(): void
     {		
         parent::setUp();
 	}
@@ -115,4 +115,3 @@ class UriHelperTestCase extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse(tao_helpers_Uri::isValidAsCookieDomain('http://.my.tao.platform.qc.ca'));		
 	}
 }
-?>

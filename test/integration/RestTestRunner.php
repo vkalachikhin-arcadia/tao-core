@@ -26,14 +26,13 @@ abstract class RestTestRunner extends GenerisPhpUnitTestRunner
             GenerisRdf::PROPERTY_USER_FIRSTNAME => 'John',
             GenerisRdf::PROPERTY_USER_MAIL => 'jdoe@tao.lu',
             GenerisRdf::PROPERTY_USER_UILG => \tao_models_classes_LanguageService::singleton()->getLanguageByCode(DEFAULT_LANG)->getUri(),
-            GenerisRdf::PROPERTY_USER_PASSWORD => 'test' . rand(),
             GenerisRdf::PROPERTY_USER_ROLES => array(
                 TaoRoles::GLOBAL_MANAGER
             )
         );
     }
     
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -53,7 +52,7 @@ abstract class RestTestRunner extends GenerisPhpUnitTestRunner
         $this->userUri = $user->getUri();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         // removes the created user
         $user = new \core_kernel_classes_Resource($this->userUri);

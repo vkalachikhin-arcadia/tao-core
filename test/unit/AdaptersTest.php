@@ -21,17 +21,12 @@
  */
 
 
-class AdaptersTestCase extends \PHPUnit_Framework_TestCase {
+class AdaptersTestCase extends \oat\generis\test\TestCase {
 
 	const CSV_FILE_USERS_HEADER_UNICODE = '/samples/csv/users1-header.csv';
 	const CSV_FILE_USERS_HEADER_UNICODE_WITH_MULTI_FIELD_VALUE = '/samples/csv/users1-header-multi-field-values.csv';
 	const CSV_FILE_USERS_NO_HEADER_UNICODE = '/samples/csv/users1-no-header.csv';
-	
-	public function testGenerisAdapterCsv() {
-		// First test: instantiate a generis CSV adapter and load a file.
-		// Let the default options rule the adapter.
-		
-	}
+
 	
 	public function testCsvFileParsing() {
 		// + Subtest 1: Unicode CSV file with header row.

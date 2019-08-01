@@ -2,10 +2,10 @@
 
 namespace oat\test\model\Tree;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\Tree\TreeWrapper;
-use PHPUnit_Framework_TestCase;
 
-class TreeWrapperTest extends PHPUnit_Framework_TestCase
+class TreeWrapperTest extends TestCase
 {
 
 	public function testGetDefaultChildren()

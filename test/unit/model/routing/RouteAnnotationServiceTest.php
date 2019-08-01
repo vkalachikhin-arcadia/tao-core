@@ -35,7 +35,7 @@ class RouteAnnotationServiceTest extends TestCase
      */
     private $service;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->service = new RouteAnnotationService();
@@ -66,6 +66,8 @@ class RouteAnnotationServiceTest extends TestCase
                         return [];
                         break;
                 }
+            } else {
+                return ['required_rights' => [], 'security' => []];
             }
         });
 
@@ -81,7 +83,7 @@ class RouteAnnotationServiceTest extends TestCase
 
     public function testIncorrectClassName()
     {
-        self::assertFalse($this->service->hasAccess('', ''));
+        self::assertTrue($this->service->hasAccess('', ''));
     }
 
     public function testIsHidden()

@@ -20,11 +20,12 @@
 
 namespace oat\tao\test\unit\session;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\routing\Resolver;
 use oat\tao\model\session\restSessionFactory\RestSessionFactory;
 use oat\tao\model\session\restSessionFactory\SessionBuilder;
 
-class RestSessionFactoryTest extends \PHPUnit_Framework_TestCase
+class RestSessionFactoryTest extends TestCase
 {
     public function testCreateSessionFromRequest()
     {
@@ -64,10 +65,10 @@ class RestSessionFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \common_Exception
      */
     public function testCreateSessionFromRequestWithNoBuilders()
     {
+        $this->expectException(\common_Exception::class);
         $class = TestRest::class;
         $resolverProphecy = $this->prophesize(Resolver::class);
         $resolverProphecy->getControllerClass()->willReturn($class);
@@ -82,10 +83,10 @@ class RestSessionFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \common_Exception
      */
     public function testCreateSessionFromRequestWithNoApplicableBuilders()
     {
+        $this->expectException(\common_Exception::class);
         $class = TestRest::class;
         $resolverProphecy = $this->prophesize(Resolver::class);
         $resolverProphecy->getControllerClass()->willReturn($class);
@@ -121,10 +122,10 @@ class RestSessionFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \LogicException
      */
     public function testGetSessionBuildersWithInvalidBuilder()
     {
+        $this->expectException(\LogicException::class);
         $mock = $this->getMockForAbstractClass(SessionBuilder::class);
 
         $service = new RestSessionFactoryTester(array(
@@ -154,7 +155,7 @@ class RestSessionFactoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Provider of testIsRestController
-     *
+     * @doesNotPerformAssertions
      * @return array
      */
     public function testIsRestControllerProvider()

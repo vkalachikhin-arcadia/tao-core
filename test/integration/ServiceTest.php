@@ -25,7 +25,6 @@ use oat\generis\model\GenerisRdf;
 use oat\tao\model\menu\MenuService;
 use oat\tao\model\TaoOntology;
 use oat\tao\test\TaoPhpUnitTestRunner;
-use tao_models_classes_GenerisService;
 use \tao_models_classes_TaoService;
 use \tao_models_classes_UserService;
 use \core_kernel_classes_Class;
@@ -51,7 +50,8 @@ class ServiceTest extends TaoPhpUnitTestRunner {
 	/**
 	 * tests initialization
 	 */
-	public function setUp(){
+	public function setUp(): void
+    {
 		TaoPhpUnitTestRunner::initTest();
 		$this->assertNull($this->taoService);
 		$this->taoService = tao_models_classes_TaoService::singleton();
@@ -119,7 +119,7 @@ class ServiceTest extends TaoPhpUnitTestRunner {
 
 		//get the diff between the class and the subclass
 		$diffs = $this->taoService->getPropertyDiff($testModelClass, $generisResourceClass);
-		$this->assertInternalType('array' , $diffs);
+		$this->assertIsArray($diffs);
 		$diffProperty = $diffs[0];
 		$this->assertNotNull($diffProperty);
 		$this->assertIsA($diffProperty, 'core_kernel_classes_Property');
@@ -156,7 +156,7 @@ class ServiceTest extends TaoPhpUnitTestRunner {
 			$testClass =$itemClass;
 		}
 		$foundProp = $this->taoService->getClazzProperties($testClass);
-		$this->assertInternalType('array' , $foundProp);
+		$this->assertIsArray($foundProp);
         $this->assertTrue(count($foundProp) >= 3, 'the class item or one of is subclasses has less then three properties');
 
 		//delete the item class in case it has been created if it was not in the model
@@ -245,4 +245,3 @@ class ServiceTest extends TaoPhpUnitTestRunner {
 	}
 
 }
-?>

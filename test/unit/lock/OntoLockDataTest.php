@@ -20,9 +20,10 @@
 
 namespace  oat\tao\test\unit\lock;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\lock\implementation\OntoLockData;
 
-class OntoLockDataTest extends \PHPUnit_Framework_TestCase
+class OntoLockDataTest extends TestCase
 {
 
     /**
@@ -60,14 +61,12 @@ class OntoLockDataTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $lock->toJson());
     }
     /**
-     * @expectedException common_exception_InconsistentData
      * @author Lionel Lecaque, lionel@taotesting.com
      */
     public function testGetLockDataExeption()
     {
+        $this->expectException(\common_exception_InconsistentData::class);
         OntoLockData::getLockData(json_encode(array()));
     }
     
 }
-
-?>

@@ -65,7 +65,8 @@ class AuthTestCase extends TaoPhpUnitTestRunner {
 	/**
 	 * tests initialization
 	 */
-	public function setUp(){		
+    public function setUp(): void
+    {
 		TaoPhpUnitTestRunner::initTest();
 
 		$this->clearPassword = $this->testUserData[GenerisRdf::PROPERTY_USER_PASSWORD];
@@ -83,7 +84,8 @@ class AuthTestCase extends TaoPhpUnitTestRunner {
 	/**
 	 * tests clean up
 	 */
-	public function tearDown(){
+    public function tearDown(): void
+    {
 		if (!is_null($this->userService)) {
 			$this->userService->removeUser($this->testUser);
 		}

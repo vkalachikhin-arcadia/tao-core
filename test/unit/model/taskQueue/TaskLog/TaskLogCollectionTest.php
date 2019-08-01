@@ -20,10 +20,11 @@
 
 namespace oat\tao\test\unit\model\taskQueue\TaskLog;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\taskQueue\TaskLog\TaskLogCollection;
 use oat\tao\model\taskQueue\TaskLogInterface;
 
-class TaskLogCollectionTest extends \PHPUnit_Framework_TestCase
+class TaskLogCollectionTest extends TestCase
 {
     /**
      * @throws \Exception
@@ -44,7 +45,7 @@ class TaskLogCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $collection = $this->createCollection();
 
-        $this->assertInternalType('array', $collection->jsonSerialize());
+        $this->assertIsArray($collection->jsonSerialize());
     }
 
     /**

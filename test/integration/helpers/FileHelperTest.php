@@ -36,19 +36,21 @@ class FileHelperTest extends TaoPhpUnitTestRunner {
     
     public function __construct()
     {
+        parent::__construct();
         $this->tmpPath = sys_get_temp_dir();
         $this->envName = 'ROOT_DIR';
         $this->envPath = $this->tmpPath.'/'.$this->envName;
     }
     
-    public function setUp()
+    public function setUp(): void
     {		
         parent::setUp();
 		TaoPhpUnitTestRunner::initTest();
         $this->initEnv($this->tmpPath, $this->envName, $this->deep, $this->fileCount);
 	}
     
-    public function tearDown() {
+    public function tearDown(): void
+    {
         parent::tearDown();
         tao_helpers_File::remove($this->envPath, true);
         $this->assertFalse(is_dir($this->envPath));

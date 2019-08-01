@@ -25,7 +25,7 @@
  * @package tao
  
  */
-class DisplayHelperTest extends \PHPUnit_Framework_TestCase {
+class DisplayHelperTest extends \oat\generis\test\TestCase {
     
     /**
      * Data provider for the testTimetoDuration method

@@ -21,11 +21,12 @@
 namespace oat\tao\test\unit\model\taskQueue\TaskLog\Entity;
 
 use common_report_Report as Report;
+use oat\generis\test\TestCase;
 use oat\tao\model\taskQueue\TaskLog\CategorizedStatus;
 use oat\tao\model\taskQueue\TaskLog\Entity\TaskLogEntity;
 use oat\tao\model\taskQueue\TaskLogInterface;
 
-class TaskLogEntityTest extends \PHPUnit_Framework_TestCase
+class TaskLogEntityTest extends TestCase
 {
     public function testEntityCreated()
     {
@@ -56,11 +57,11 @@ class TaskLogEntityTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Report::class, $entity->getReport());
         $this->assertInstanceOf(\DateTime::class, $entity->getCreatedAt());
         $this->assertInstanceOf(\DateTime::class, $entity->getUpdatedAt());
-        $this->assertInternalType('string', $entity->getId());
-        $this->assertInternalType('string', $entity->getTaskName());
-        $this->assertInternalType('array', $entity->getParameters());
-        $this->assertInternalType('string', $entity->getLabel());
-        $this->assertInternalType('string', $entity->getOwner());
+        $this->assertIsString($entity->getId());
+        $this->assertIsString($entity->getTaskName());
+        $this->assertIsArray($entity->getParameters());
+        $this->assertIsString($entity->getLabel());
+        $this->assertIsString($entity->getOwner());
 
         $this->assertEquals([
             'id' => 'rdf#i1508337970199318643',

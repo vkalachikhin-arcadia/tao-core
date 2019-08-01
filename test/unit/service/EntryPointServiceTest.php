@@ -20,16 +20,17 @@
  */
 namespace oat\tao\test\unit\service;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\entryPoint\EntryPointService;
 
-class EntryPointServiceTest extends \PHPUnit_Framework_TestCase
+class EntryPointServiceTest extends TestCase
 {
     /**
      * @var EntryPointService
      */
     private $service;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

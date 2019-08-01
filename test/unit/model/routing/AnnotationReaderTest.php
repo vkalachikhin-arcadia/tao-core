@@ -22,6 +22,7 @@ namespace oat\tao\test\unit\model\routing;
 
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use oat\generis\test\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionObject;
@@ -67,14 +68,14 @@ class AnnotationDemo
  * Class AnnotationReaderTest
  * @package oat\tao\test\unit\model\routing
  */
-class AnnotationReaderTest extends \PHPUnit_Framework_TestCase
+class AnnotationReaderTest extends TestCase
 {
     private $annotationReader;
 
     /**
      * @throws \Doctrine\Common\Annotations\AnnotationException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->annotationReader = new AnnotationReader();
     }

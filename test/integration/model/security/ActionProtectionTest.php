@@ -59,7 +59,7 @@ class ActionProtectionTest extends GenerisPhpUnitTestRunner
         curl_close($ch);
 
         static::assertNotNull($this->cspHeader, 'Content-Security-Policy header must be set.');
-        static::assertContains('frame-ancestors', $this->cspHeader, 'The "frame-ancestors" directive must be set.');
+        static::assertStringContainsString('frame-ancestors', $this->cspHeader, 'The "frame-ancestors" directive must be set.');
     }
 
 }

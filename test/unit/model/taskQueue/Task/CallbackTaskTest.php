@@ -20,12 +20,13 @@
 
 namespace oat\tao\test\unit\model\taskQueue\Task;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\taskQueue\Task\CallbackTask;
 use oat\tao\model\taskQueue\Task\CallbackTaskInterface;
 use oat\tao\model\taskQueue\Task\TaskInterface;
 use oat\tao\test\Asset\CallableFixture;
 
-class CallbackTaskTest extends \PHPUnit_Framework_TestCase
+class CallbackTaskTest extends TestCase
 {
     /**
      * @var CallbackTask
@@ -34,12 +35,12 @@ class CallbackTaskTest extends \PHPUnit_Framework_TestCase
     private $fakeId = 'WCDWW544eefdtyh';
     private $fakeOwner = 'FakeOwner2';
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->task = new CallbackTask($this->fakeId, $this->fakeOwner);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->task = null;
     }

@@ -21,11 +21,12 @@
 namespace oat\tao\test\integration\service;
 
 use League\Flysystem\Adapter\AbstractAdapter;
+use oat\generis\test\TestCase;
 use oat\oatbox\filesystem\Directory;
 use oat\oatbox\filesystem\FileSystemService;
 use oat\oatbox\service\ServiceManager;
 
-class StorageDirectoryTest extends \PHPUnit_Framework_TestCase
+class StorageDirectoryTest extends TestCase
 {
     protected $fileSystemTmpId;
     protected $fileSystem;
@@ -36,7 +37,7 @@ class StorageDirectoryTest extends \PHPUnit_Framework_TestCase
     /** @var  \tao_models_classes_service_StorageDirectory */
     protected $instance;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->fileSystemTmpId = 'test_' . uniqid();
         $fileSystemService = ServiceManager::getServiceManager()->get(FileSystemService::SERVICE_ID);
@@ -50,7 +51,7 @@ class StorageDirectoryTest extends \PHPUnit_Framework_TestCase
         $this->instance->setServiceLocator(ServiceManager::getServiceManager());
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $fileSystemService = ServiceManager::getServiceManager()->get(FileSystemService::SERVICE_ID);
         $fileSystemService->unregisterFileSystem($this->fileSystemTmpId);
@@ -106,7 +107,7 @@ class StorageDirectoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($this->instance->isPublic());
 
-        $this->setExpectedException(\common_Exception::class);
+        $this->expectException(\common_Exception::class);
         $this->instance->getPublicAccessUrl();
     }
 
@@ -206,7 +207,7 @@ class StorageDirectoryTest extends \PHPUnit_Framework_TestCase
         // @todo requesting example.com is not a good idea as test should ideally be isolated from external world
         $resource = fopen('http://example.com', 'r');
         $streamFixture = \GuzzleHttp\Psr7\stream_for($resource);
-        $this->setExpectedException(\common_Exception::class);
+        $this->expectException(\common_Exception::class);
         $this->instance->getFile($tmpFile)->write($streamFixture);
         fclose($resource);
         $streamFixture->close();

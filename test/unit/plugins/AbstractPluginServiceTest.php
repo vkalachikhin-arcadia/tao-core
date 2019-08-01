@@ -19,6 +19,7 @@
 
 namespace oat\tao\test\unit\plugins;
 
+use oat\generis\test\TestCase;
 use oat\oatbox\service\ConfigurableService;
 use oat\tao\model\plugins\AbstractPluginRegistry;
 use oat\tao\model\plugins\AbstractPluginService;
@@ -67,7 +68,7 @@ class PluginService extends AbstractPluginService
  * @author Bertrand Chevrier <bertrand@taotesting.com>
  * @author Jean-Sébastien Conan <jean-sebastien@taotesting.com>
  */
-class AbstractPluginServiceTest extends \PHPUnit_Framework_TestCase
+class AbstractPluginServiceTest extends TestCase
 {
     //data to stub the registry content
     private static $pluginData = [

@@ -43,7 +43,7 @@ class PasswordRecoveryServiceTest extends TaoPhpUnitTestRunner
     /**
      * tests initialization
      */
-    public function setUp()
+    public function setUp(): void
     {
         TaoPhpUnitTestRunner::initTest();
         $this->testUser = $this->createUser();
@@ -52,7 +52,7 @@ class PasswordRecoveryServiceTest extends TaoPhpUnitTestRunner
     /**
      * tests clean up
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         if (!is_null($this->testUser)) {
             $this->testUser->delete();
@@ -77,7 +77,7 @@ class PasswordRecoveryServiceTest extends TaoPhpUnitTestRunner
         $class = new core_kernel_classes_Class(GenerisRdf::CLASS_GENERIS_USER);
         return $class->createInstanceWithProperties(array(
             GenerisRdf::PROPERTY_USER_LOGIN => 'john.doe',
-            GenerisRdf::PROPERTY_USER_PASSWORD => core_kernel_users_Service::getPasswordHash()->encrypt('secure'),
+            GenerisRdf::PROPERTY_USER_PASSWORD => core_kernel_users_Service::getPasswordHash()->encrypt('secureDd1!'),
             GenerisRdf::PROPERTY_USER_LASTNAME => 'Doe',
             GenerisRdf::PROPERTY_USER_FIRSTNAME => 'John',
             GenerisRdf::PROPERTY_USER_MAIL => 'jonhdoe@tao.lu',

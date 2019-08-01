@@ -29,7 +29,7 @@
  * @package tao
 
  */
-class IconsTest extends \PHPUnit_Framework_TestCase {
+class IconsTest extends \oat\generis\test\TestCase {
     
     
     /**

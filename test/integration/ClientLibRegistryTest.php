@@ -40,7 +40,7 @@ class ClientLibRegistryTest extends TaoPhpUnitTestRunner
      *
      * @author Lionel Lecaque, lionel@taotesting.com
      */
-    public function setUp()
+    public function setUp(): void
     {
         TaoPhpUnitTestRunner::initTest();
         ClientLibRegistry::getRegistry()->remove($this->libId);
@@ -56,13 +56,13 @@ class ClientLibRegistryTest extends TaoPhpUnitTestRunner
     {
         // verify test lib does not exist
         $map = ClientLibRegistry::getRegistry()->getMap();
-        $this->assertFalse(empty($map));
+        $this->assertNotEmpty($map);
         $this->assertFalse(isset($map[$this->libId]));
         
         ClientLibRegistry::getRegistry()->register($this->libId, Template::js('fakePath/views/js/', 'tao'));
         
         $map = ClientLibRegistry::getRegistry()->getMap();
-        $this->assertInternalType('array', $map);
+        $this->assertIsArray($map);
         $this->assertTrue(isset($map[$this->libId]));
         
         $this->assertEquals('js/fakePath/views/js/', $map[$this->libId]['path']);
@@ -81,7 +81,7 @@ class ClientLibRegistryTest extends TaoPhpUnitTestRunner
         ClientLibRegistry::getRegistry()->remove($libId);
         
         $map = ClientLibRegistry::getRegistry()->getMap();
-        $this->assertInternalType('array', $map);
+        $this->assertIsArray($map);
         $this->assertFalse(isset($map[$libId]));
     }
 }

@@ -20,9 +20,10 @@
 
 namespace oat\tao\test\unit\model\textConverter;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\textConverter\TextConverterService;
 
-class textConverterServiceTest extends \PHPUnit_Framework_TestCase
+class textConverterServiceTest extends TestCase
 {
     public function testGet()
     {

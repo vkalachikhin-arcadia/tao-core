@@ -33,7 +33,7 @@ class WebhookFileRegistryTest extends TestCase
     /** @var WebhookEntryFactory|\PHPUnit_Framework_MockObject_MockObject */
     private $webhookEntryFactoryMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->webhookEntryFactoryMock = $this->createMock(WebhookEntryFactory::class);
     }

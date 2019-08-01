@@ -1,7 +1,6 @@
 <?php
 
 use oat\generis\model\GenerisRdf;
-use oat\generis\model\OntologyRdf;
 use oat\oatbox\user\LoginService;
 use oat\tao\model\event\UserCreatedEvent;
 use oat\tao\model\event\UserRemovedEvent;
@@ -527,13 +526,13 @@ class tao_models_classes_UserService extends ConfigurableService implements core
             }, $roles);
         }
 
-        if (in_array(TaoRoles::SYSTEM_ADMINISTRATOR, $roles)
+        if (is_array($roles) && in_array(TaoRoles::SYSTEM_ADMINISTRATOR, $roles)
             && !$this->userHasRoles($this->getCurrentUser(), TaoRoles::SYSTEM_ADMINISTRATOR)
         ) {
             throw new common_exception_Error('Permission denied');
         }
 
-        if (in_array(TaoRoles::GLOBAL_MANAGER, $roles)
+        if (is_array($roles) && in_array(TaoRoles::GLOBAL_MANAGER, $roles)
             && !$this->userHasRoles($this->getCurrentUser(), [TaoRoles::SYSTEM_ADMINISTRATOR, TaoRoles::GLOBAL_MANAGER])
         ) {
             throw new common_exception_Error('Permission denied');

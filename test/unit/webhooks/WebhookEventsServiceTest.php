@@ -43,7 +43,7 @@ class WebhookEventsServiceTest extends TestCase
     /** @var string[] */
     private $whRegistryData = [];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->eventManagerMock = $this->createMock(EventManager::class);
 

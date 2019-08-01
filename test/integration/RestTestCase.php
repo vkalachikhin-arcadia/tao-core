@@ -107,23 +107,23 @@ abstract class RestTestCase extends RestTestRunner
         $ItemClass = new \core_kernel_classes_Class($topclass);
         $instances = $ItemClass->getInstances(true);
         foreach ($data['data'] as $results){
-            $this->assertInternalType('array', $results);
+            $this->assertIsArray($results);
             $this->assertArrayHasKey('uri', $results);
             $this->assertArrayHasKey('properties', $results);
-            $this->assertInternalType('array', $instances);
+            $this->assertIsArray($instances);
     
             $this->assertArrayHasKey($results['uri'], $instances);
             $resource = $instances[$results['uri']];
     
             foreach ($results['properties'] as $propArray){
-                $this->assertInternalType('array', $propArray);
+                $this->assertIsArray($propArray);
     
                 $this->assertArrayHasKey('predicateUri',$propArray);
                 $prop = new \core_kernel_classes_Property($propArray['predicateUri']);
                 $values = $resource->getPropertyValues($prop);
                 $this->assertArrayHasKey('values',$propArray);
                 $current = current($propArray['values']);
-                $this->assertInternalType('array',$current);
+                $this->assertIsArray($current);
     
                 $this->assertArrayHasKey('valueType',$current);
                 if (\common_Utils::isUri(current($values))){

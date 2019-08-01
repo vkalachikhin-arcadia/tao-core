@@ -19,6 +19,7 @@
 
 namespace oat\tao\test\unit\modules;
 
+use oat\generis\test\TestCase;
 use oat\oatbox\service\ConfigurableService;
 use oat\tao\model\modules\AbstractModuleRegistry;
 use oat\tao\model\modules\AbstractModuleService;
@@ -67,7 +68,7 @@ class ModuleService extends AbstractModuleService
  * @author Bertrand Chevrier <bertrand@taotesting.com>
  * @author Jean-Sébastien Conan <jean-sebastien@taotesting.com>
  */
-class AbstractModuleServiceTest extends \PHPUnit_Framework_TestCase
+class AbstractModuleServiceTest extends TestCase
 {
     //data to stub the registry content
     private static $moduleData = [

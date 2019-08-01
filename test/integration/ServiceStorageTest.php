@@ -21,15 +21,17 @@
 
 include_once dirname(__FILE__) . '/../../includes/raw_start.php';
 
-class ServiceStorageTestCase extends \PHPUnit_Framework_TestCase {
+class ServiceStorageTestCase extends \oat\tao\test\TaoPhpUnitTestRunner {
 
 	/**
 	 * tests initialization
 	 */
-	public function setUp(){
+	public function setUp(): void
+    {
 	}
 	
-	public function tearDown() {
+	public function tearDown(): void
+    {
     }
 	
 	

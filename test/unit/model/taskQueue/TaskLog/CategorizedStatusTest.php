@@ -20,9 +20,10 @@
 
 namespace oat\tao\test\unit\model\taskQueue\TaskLog;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\taskQueue\TaskLog\CategorizedStatus;
 
-class CategorizedStatusTest extends \PHPUnit_Framework_TestCase
+class CategorizedStatusTest extends TestCase
 {
     /**
      * @throws \Exception
@@ -34,11 +35,11 @@ class CategorizedStatusTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception
      */
     public function testCreateWithInvalidStatus()
     {
+        $this->expectException(\Exception::class);
         CategorizedStatus::createFromString('some invalid status');
     }
 

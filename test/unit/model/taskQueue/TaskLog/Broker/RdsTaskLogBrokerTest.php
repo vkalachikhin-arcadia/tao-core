@@ -36,7 +36,7 @@ class RdsTaskLogBrokerTest extends TestCase
      */
     protected $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         $persistenceId = 'rds_task_log_test';
         $databaseMock = $this->getSqlMock($persistenceId);
@@ -62,10 +62,10 @@ class RdsTaskLogBrokerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testTaskLogBrokerServiceShouldThrowExceptionWhenPersistenceOptionIsEmpty()
     {
+        $this->expectException(\InvalidArgumentException::class);
         new RdsTaskLogBroker('');
     }
 

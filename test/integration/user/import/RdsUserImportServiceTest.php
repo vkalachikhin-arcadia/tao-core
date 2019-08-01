@@ -46,11 +46,11 @@ class RdsUserImportServiceTest extends TestCase
 
     /**
      * @dataProvider provideMapperProperties
-     * @expectedException \Exception
      * @throws \Exception
      */
     public function testImportFileNotExists($data)
     {
+        $this->expectException(\Exception::class);
         $importService = $this->getImportService($data);
         $importService->import(__DIR__ . '/not_existing_file.csv');
     }

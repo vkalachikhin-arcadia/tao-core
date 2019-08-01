@@ -37,7 +37,7 @@ class HttpSourceTest extends TaoPhpUnitTestRunner {
 	    $this->assertEquals('tao.png', $mediaSource->getBaseName(Template::img('tao.png', 'tao')));
 	    $this->assertEquals('tao.png', $mediaSource->getBaseName(Template::img('tao.png?a=b', 'tao')));
 	    
-	    $this->setExpectedException(tao_models_classes_FileNotFoundException::class);
+	    $this->expectException(tao_models_classes_FileNotFoundException::class);
 	    $mediaSource->getBaseName('http://notevenavaliddomain');
 	}
 }

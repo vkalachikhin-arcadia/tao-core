@@ -20,6 +20,7 @@
 
 namespace oat\tao\test\unit\model\taskQueue\TaskLog\Decorator;
 
+use oat\generis\test\TestCase;
 use oat\oatbox\user\AnonymousUser;
 use oat\tao\model\taskQueue\TaskLog;
 use oat\tao\model\taskQueue\TaskLog\CategorizedStatus;
@@ -28,7 +29,7 @@ use oat\tao\model\taskQueue\TaskLog\Entity\TaskLogEntity;
 use oat\tao\model\taskQueue\TaskLogInterface;
 use Prophecy\Argument;
 
-class RedirectUrlEntityDecoratorTest extends \PHPUnit_Framework_TestCase
+class RedirectUrlEntityDecoratorTest extends TestCase
 {
     private $createdAt;
     private $updatedAt;

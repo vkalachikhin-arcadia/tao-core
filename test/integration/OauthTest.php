@@ -36,7 +36,7 @@ class OauthTest extends TaoPhpUnitTestRunner {
 	 */
 	private $credentials;
 	
-    public function setUp()
+    public function setUp(): void
     {		
         parent::setUp();
 		TaoPhpUnitTestRunner::initTest();
@@ -48,13 +48,9 @@ class OauthTest extends TaoPhpUnitTestRunner {
 		));
 	}
 	
-	public function tearDown() {
+	public function tearDown(): void
+    {
 		parent::tearDown();
 		$this->credentials->delete();
 	}
-	
-	public function testValidation(){
-		// @todo implement curl bassed test
-	}
 }
-?>

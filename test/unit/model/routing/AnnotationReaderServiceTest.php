@@ -22,6 +22,7 @@
 namespace oat\tao\test\unit\model\routing;
 
 use common_cache_Cache;
+use oat\generis\test\TestCase;
 use oat\tao\model\routing\AnnotationReader\requiredRights;
 use oat\tao\model\routing\AnnotationReader\security;
 use oat\tao\model\routing\AnnotationReaderService;
@@ -49,14 +50,14 @@ class TestingClass {
 }
 
 
-class AnnotationReaderServiceTest extends \PHPUnit_Framework_TestCase
+class AnnotationReaderServiceTest extends TestCase
 {
     /**
      * @var AnnotationReaderService
      */
     private $service;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->service = new AnnotationReaderService();
 

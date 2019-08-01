@@ -34,26 +34,26 @@ use oat\tao\model\taskQueue\TaskLog;
 
 class QueueDispatcherTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage  Queues needs to be set
      */
     public function testDispatcherWhenQueuesAreEmptyThenThrowException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Queues needs to be set.');
         new QueueDispatcher([]);
     }
 
     /**
-     * @expectedException \common_exception_Error
-     * @expectedExceptionMessage  Task Log service needs to be set.
      */
     public function testDispatcherNoTaskLogThenThrowException()
     {
+        $this->expectException(\common_exception_Error::class);
+        $this->expectExceptionMessage('Task Log service needs to be set.');
         new QueueDispatcher([
             QueueDispatcher::OPTION_QUEUES =>[
                 new Queue('queueA', new InMemoryQueueBroker())
@@ -62,11 +62,12 @@ class QueueDispatcherTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectExceptionMessageRegExp  /There are duplicated Queue names/
      */
     public function testDispatcherWhenDuplicatedQueuesAreSetThenThrowException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('There are duplicated Queue names. Please check the values of "queues" in your queue dispatcher settings.');
+        $this->expectExceptionMessageRegExp('/There are duplicated Queue names/');
         new QueueDispatcher([
             QueueDispatcher::OPTION_QUEUES =>[
                 new Queue('queueA', new InMemoryQueueBroker()),
@@ -76,11 +77,11 @@ class QueueDispatcherTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectExceptionMessageRegExp  There are duplicated Queue names/
      */
     public function testDispatcherWhenNotRegisteredQueueIsUsedForTaskThenThrowException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageRegExp('/There are duplicated Queue names/');
         new QueueDispatcher([
             QueueDispatcher::OPTION_QUEUES => [
                 new Queue('queueA', new InMemoryQueueBroker()),

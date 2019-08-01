@@ -26,7 +26,7 @@ use Prophecy\Prediction\CallTimesPrediction;
  * @author Aleh Hutnikau <hutnikau@1pt.com>
  * @package tao
  */
-class MessagingServiceTest extends \PHPUnit_Framework_TestCase
+class MessagingServiceTest extends \oat\generis\test\TestCase
 {
     /**
      * 

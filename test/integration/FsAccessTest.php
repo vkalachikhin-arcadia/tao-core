@@ -56,7 +56,7 @@ class tao_test_FsAccessTest extends TaoPhpUnitTestRunner {
      */
     private $fileSystem = null;
     
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->disableCache();
         $pass = md5(rand());
@@ -83,7 +83,8 @@ class tao_test_FsAccessTest extends TaoPhpUnitTestRunner {
         parent::setUp();
     }
     
-    public function tearDown() {
+    public function tearDown(): void
+    {
         $this->restoreCache();
         parent::tearDown();
         if($this->testUser instanceof core_kernel_classes_Resource){

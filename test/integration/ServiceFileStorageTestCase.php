@@ -21,7 +21,7 @@
 
 //TODO simpletest testcase that need to be migrate to phpunit
 
-class ServiceFileStorageTestCase extends PHPUnit_Framework_TestCase {
+class ServiceFileStorageTestCase extends \oat\generis\test\TestCase {
 
 	public function testFileStorage() {
 	    $storage = tao_models_classes_service_FileStorage::singleton();

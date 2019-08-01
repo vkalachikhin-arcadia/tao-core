@@ -19,10 +19,11 @@
 
 namespace oat\tao\test\unit\user\import;
 
+use oat\generis\test\TestCase;
 use oat\tao\model\import\service\ImportServiceInterface;
 use oat\tao\model\user\import\UserCsvImporterFactory;
 
-class UserCsvImporterFactoryTest extends \PHPUnit_Framework_TestCase
+class UserCsvImporterFactoryTest extends TestCase
 {
     public function testGetImporterDefined()
     {
