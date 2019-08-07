@@ -56,9 +56,6 @@ class tao_install_utils_DbalDbCreator
             $this->dbConfiguration = $params;
             $this->driverName = $this->findDriverName();
             $this->buildSchema();
-            if ($this->driverName === SpannerDriver::DRIVER_NAME) {
-                $this->connection->connect();
-            }
         }
    		catch(Exception $e){
    			$this->connection = null;
@@ -78,10 +75,6 @@ class tao_install_utils_DbalDbCreator
         if (isset($this->dbConfiguration['driver'])) {
             return $this->dbConfiguration['driver'];
         }
-
-        $driverNames = [
-            SpannerDriver::class => SpannerDriver::DRIVER_NAME,
-        ];
 
         if (isset($this->dbConfiguration['driverClass'])) {
             $driverClass = $this->dbConfiguration['driverClass'];

@@ -184,14 +184,6 @@ class tao_install_Installator {
 				$dbConnectionParams['portability'] = \Doctrine\DBAL\Portability\Connection::PORTABILITY_ALL;
 				$dbConnectionParams['fetch_case'] = PDO::CASE_LOWER;
 			}
-            if($installData['db_driver'] == SpannerDriver::DRIVER_NAME) {
-                $dbConnectionParams = [
-                    'dbname' => $installData['db_name'],
-                    'instance' => $installData['db_host'],
-                    'driverClass' => SpannerDriver::class,
-                    'platform' => new SpannerPlatform(),
-                ];
-            }
 
 			$dbCreator = new tao_install_utils_DbalDbCreator($dbConnectionParams);
 			

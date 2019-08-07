@@ -160,7 +160,7 @@ class RdsTaskLogBroker implements TaskLogBrokerInterface, PhpSerializable, Logge
             self::COLUMN_OWNER => (string) $task->getOwner(),
             self::COLUMN_CREATED_AT => $task->getCreatedAt()->format($platform->getDateTimeFormatString()),
             self::COLUMN_UPDATED_AT => $platform->getNowExpression(),
-            self::COLUMN_MASTER_STATUS => $task->isMasterStatus(),
+            self::COLUMN_MASTER_STATUS => (integer) $task->isMasterStatus(),
         ]);
     }
 
@@ -262,7 +262,7 @@ class RdsTaskLogBroker implements TaskLogBrokerInterface, PhpSerializable, Logge
 
             $filter->applyFilters($qb);
 
-            $collection = TaskLogCollection::createFromArray($qb->execute()->fetchAll(), $platform->getDateTimeTzFormatString());
+            $collection = TaskLogCollection::createFromArray($qb->execute()->fetchAll(), $platform->getDateTimeFormatString());
         } catch (\Exception $exception) {
             $this->logError('Searching for task logs failed with MSG: ' . $exception->getMessage());
 
