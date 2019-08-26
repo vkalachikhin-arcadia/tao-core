@@ -19,6 +19,8 @@
 
 namespace oat\tao\model\webhooks;
 
+use oat\tao\model\webhooks\task\WebhookTaskParams;
+
 /**
  * TODO: should be implemented in TAO-8498
  */
@@ -27,8 +29,15 @@ interface WebhookTaskServiceInterface
     const SERVICE_ID = 'tao/webhookTaskService';
 
     /**
-     * Create and enqueue task for performing webhook
-     * @param WebhookTaskMetadata $webhookTaskMetadata
+     * Should be called in updater/install script for specific env to
+     * link webhook tasks to specific queue which is already registered in queue dispatcher
+     * @param string $queueName
      */
-    public function createTask(WebhookTaskMetadata $webhookTaskMetadata);
+    public function linkTaskToQueue($queueName);
+
+    /**
+     * Create and enqueue task for performing webhook
+     * @param WebhookTaskParams $webhookTaskParams
+     */
+    public function createTask(WebhookTaskParams $webhookTaskParams);
 }
