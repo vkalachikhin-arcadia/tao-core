@@ -175,7 +175,9 @@ class WebhookEventsServiceTest extends TestCase
     public function testHandleEventNotSerializable() {
         /** @var Event|\PHPUnit_Framework_MockObject_MockObject $event */
         /** @noinspection PhpParamsInspection */
-        $event = $this->createMock(Event::class);
+        $event = $this->getMockBuilder(Event::class)
+            ->setMethods(['getWebhookEventName','getName','serializeForWebhook'])
+            ->getMock();
         $event->method('getName')->willReturn('TestEvent');
         $event->method('getWebhookEventName')->willReturn('WhTestEvent');
         $event->expects($this->never())->method('serializeForWebhook');

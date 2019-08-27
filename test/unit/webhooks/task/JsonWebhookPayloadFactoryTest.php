@@ -49,6 +49,7 @@ class JsonWebhookPayloadFactoryTest extends TestCase
             }
             $this->fail(implode(PHP_EOL, $validationErrors));
         }
+        $this->assertTrue(true); //just to fix "no assertions" message
     }
 
     public function testCreatePayloadData()
